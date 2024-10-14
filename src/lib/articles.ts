@@ -5,6 +5,7 @@ interface Article {
   description: string
   author: string
   date: string
+  category: string
 }
 
 export interface ArticleWithSlug extends Article {
@@ -25,12 +26,22 @@ async function importArticle(
   }
 }
 
-export async function getAllArticles() {
+export async function getAllArticles(category?: string) {
   let articleFilenames = await glob('*/page.mdx', {
     cwd: './src/app/articles',
   })
 
   let articles = await Promise.all(articleFilenames.map(importArticle))
+  articles = articles.sort((a, z) => +new Date(z.date) - +new Date(a.date))
 
-  return articles.sort((a, z) => +new Date(z.date) - +new Date(a.date))
+  return category ? articles.filter(article => article.category && article.category === category) : articles
 }
+
+export async function getCategories() {
+  let articles = await getAllArticles()
+
+  let categories = [...new Set(articles.map(article => article.category))]
+
+  return categories
+}
+
