@@ -10,13 +10,13 @@ export async function GET(req: Request) {
   }
 
   let author = {
-    name: 'Spencer Sharp',
-    email: 'spencer@planetaria.tech',
+    name: 'Hammam Firdaus',
+    email: 'hammamxalf@gmail.com',
   }
 
   let feed = new Feed({
     title: author.name,
-    description: 'Your blog description',
+    description: 'I’m Hammam, a software engineer based in Yogyakarta, Indonesia.',
     author,
     id: siteUrl,
     link: siteUrl,

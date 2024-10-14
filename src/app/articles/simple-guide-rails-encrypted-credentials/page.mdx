@@ -1,0 +1,191 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import image from './image.png'
+
+export const article = {
+  author: 'Hammam Firdaus',
+  date: '2023-04-30',
+  title: 'Simple Guide to Ruby on Rails Encrypted Credentials',
+  description:
+    'Learn how to manage encrypted credentials in Rails applications to protect sensitive data such as API keys and database credentials. This blog offers a step-by-step guide on securely handling credentials across multiple environments, making it easier to avoid security vulnerabilities while keeping your app seamless and safe.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+<figure style={{ textAlign: 'center' }}>
+  <Image src={image} alt="Photo by FLY:D on Unsplash" />
+  <figcaption>Photo by FLY:D on Unsplash</figcaption>
+</figure>
+
+Indeed, in Rails applications when we want to integrate third-party services we need some credentials related to those third-party services like tokens, API keys, database authentication, etc. So, in this article, I want to share about simple guide encrypted credentials in Rails.
+
+### We need encrypted credentials, why?
+
+Firstly, impossible if we commit some tokens or API keys directly written in the code. it makes a lot of vulnerabilities and the application will not be secure. Actually, in many cases, the credentials are put in ENV, but this is still an issue (in some standard security cases) because the ENV can be read very clearly if we are sharing the file containing the credentials. So, the best solution in this case we need encrypt the credentials and we can safely commit code without worry data leaks.
+
+Here, is how to manage encrypted credentials in Rails.
+
+Firstly, there is two files:
+
+- `config/credentials.yml.enc` : contains data value
+- `config/master.key` : contains a key to decrypt encrypted data on `credentials.yml.enc`
+
+\*don’t forget to add the `master.key` in `.gititnore` if not already in there.
+
+### How to edit the credentials?
+
+you can edit by executing the command below:
+
+`EDITOR="vim" rails credentials:edit` here I use vim to edit the file, and you can use another editor like visual studio code with change command inside `EDITOR="code --wait" rails` (Adding `--wait` instructs the visual studio code to wait until you close it to save and encrypt it) `credentials:edit` depends on your local path.
+
+here, the default `credentials.yml.enc` look in YAML format.
+
+```bash
+# aws:
+#   access_key_id: 123
+#   secret_access_key: 345
+
+# Used as the base secret for all MessageVerifiers in Rails, including the one protecting cookies.
+secret_key_base: 3f4a08e0574770c793d695b90516174063f507a7705852b8f16661e239b0f2e0147615d9324fc9480248b282175d7e0c1594a3cac6cdc99195ee37a6cf6c7f79
+```
+
+### How to read the credentials?
+
+```bash
+production:
+ DB_NAME: db_name_prod
+ DB_PASSWORD: db_password_prod
+
+development:
+ DB_NAME: db_name_dev
+ DB_PASSWORD: db_password_dev
+
+test:
+ DB_NAME: db_name_test
+ DB_PASSWORD: db_password_test
+
+# Used as the base secret for all MessageVerifiers in Rails, including the one protecting cookies.
+secret_key_base: 3f4a08e0574770c793d695b90516174063f507a7705852b8f16661e239b0f2e0147615d9324fc9480248b282175d7e0c1594a3cac6cdc99195ee37a6cf6c7f79
+```
+
+to read the credentials I want to give an example with `rails console`
+
+```bash
+irb(main):005:0> Rails.application.credentials.config
+=>
+{:production=>{:DB_NAME=>"db_name_prod", :DB_PASSWORD=>"db_password_prod"},
+ :development=>{:DB_NAME=>"db_name_dev", :DB_PASSWORD=>"db_password_dev"},
+ :test=>{:DB_NAME=>"db_name_test", :DB_PASSWORD=>"db_password_test"},
+ :secret_key_base=>
+  "3f4a08e0574770c793d695b90516174063f507a7705852b8f16661e239b0f2e0147615d9324fc9480248b282175d7e0c1594a3cac6cdc99195ee37a6cf6c7f79"}
+irb(main):006:0> Rails.application.credentials.production
+=> {:DB_NAME=>"db_name_prod", :DB_PASSWORD=>"db_password_prod"}
+irb(main):007:0> Rails.application.credentials.development
+=> {:DB_NAME=>"db_name_dev", :DB_PASSWORD=>"db_password_dev"}
+irb(main):008:0> Rails.application.credentials.test
+=> {:DB_NAME=>"db_name_test", :DB_PASSWORD=>"db_password_test"}
+
+# actually you can access only with dot between the key
+irb(main):010:0> Rails.application.credentials.production.DB_NAME
+=> "db_name_prod"
+irb(main):011:0> Rails.application.credentials.production.DB_PASSWORD
+=> "db_password_prod"
+irb(main):012:0>
+```
+
+but, I don’t like if when we access the encrypted credentials we must use `Rails.application.credentials` . So, I created some config in `config/application.rb` to handle multiple environments at once.
+
+```ruby
+# config/application.rb
+require_relative "boot"
+
+require "rails"
+# Pick the frameworks you want:
+require "active_model/railtie"
+require "active_job/railtie"
+require "active_record/railtie"
+require "active_storage/engine"
+require "action_controller/railtie"
+require "action_mailer/railtie"
+require "action_mailbox/engine"
+require "action_text/engine"
+require "action_view/railtie"
+require "action_cable/engine"
+# require "rails/test_unit/railtie"
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
+
+module Conto
+  class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 7.0
+
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
+
+		# HERE THE CONFIG!!!
+		# assign credentials to ENV
+		Rails.application.credentials[Rails.env.to_sym].map do |key, value|
+      ENV[key.to_s] = value.to_s
+    end
+  end
+end
+```
+
+you can just add in code like this
+
+```ruby
+Rails.application.credentials[Rails.env.to_sym].map do |key, value|
+   ENV[key.to_s] = value.to_s
+end
+```
+
+So, every you move to another environment you just only call `ENV['KEY']` this makes it more seamless 😄
+
+```ruby
+❯ RAILS_ENV=development rails console
+Loading development environment (Rails 7.0.4.3)
+irb(main):001:0> ENV['DB_NAME']
+=> "db_name_dev"
+irb(main):002:0> ENV['DB_PASSWORD']
+=> "db_password_dev"
+
+❯ RAILS_ENV=test rails console
+Loading test environment (Rails 7.0.4.3)
+irb(main):001:0> ENV['DB_NAME']
+=> "db_name_test"
+irb(main):002:0> ENV['DB_PASSWORD']
+=> "db_password_test"
+
+❯ RAILS_ENV=production rails console
+Loading production environment (Rails 7.0.4.3)
+irb(main):001:0> ENV['DB_NAME']
+=> "db_name_prod"
+irb(main):002:0> ENV['DB_PASSWORD']
+=> "db_password_prod"
+```
+
+Actually, you can set the encrypted credentials with multiple environments with the below command and file `config/credentials/development.key` will be generated.
+
+```bash
+EDITOR="vim" rails credentials:edit --environment=development
+```
+
+you can change environment after `--environment=` but I don’t like this style. i prefer use one master encryption and assign the multiple environments at once in `config/application.rb`
+
+See you, in another article Guys
+Bye bye 👋
