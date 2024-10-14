@@ -9,6 +9,7 @@ import {
   GitHubIcon,
   InstagramIcon,
   LinkedInIcon,
+  WhatsappIcon,
   XIcon,
 } from '@/components/SocialIcons'
 import logoAirbnb from '@/images/logos/airbnb.svg'
@@ -273,31 +274,47 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Software designer, founder, and amateur astronaut.
+            Software engineer, Deep-Lying Playmaker and Amateur Farmer.
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            I’m Spencer, a software designer and entrepreneur based in New York
-            City. I’m the founder and CEO of Planetaria, where we develop
-            technologies that empower regular people to explore space on their
-            own terms.
+            Hi, I'm Hammam, a software engineer based in Yogyakarta, Indonesia.
+            I specialize in Ruby on Rails, JavaScript/TypeScript, Python, and
+            Golang, with a passion for building efficient and scalable
+            solutions. I'm always exploring emerging technologies, including GIS
+            development, Football Analytics and AI/ML, and I'm eager to bring
+            these innovations into real-world applications.
           </p>
           <div className="mt-6 flex gap-6">
-            <SocialLink href="#" aria-label="Follow on X" icon={XIcon} />
             <SocialLink
-              href="#"
+              href="https://twitter.com/motifakes"
+              aria-label="Follow on X"
+              icon={XIcon}
+            />
+            <SocialLink
+              href="https://www.instagram.com/mamxalf/"
               aria-label="Follow on Instagram"
               icon={InstagramIcon}
             />
             <SocialLink
-              href="#"
+              href="https://github.com/mamxalf"
               aria-label="Follow on GitHub"
               icon={GitHubIcon}
             />
             <SocialLink
-              href="#"
+              href="https://www.linkedin.com/in/hammamxalf/"
               aria-label="Follow on LinkedIn"
               icon={LinkedInIcon}
             />
+            <SocialLink
+              href="mailto:hammamxalf@gmail.com"
+              icon={MailIcon}
+              aria-label="Send me Email"
+            ></SocialLink>
+            <SocialLink
+              href="https://api.whatsapp.com/send/?phone=6285727617995"
+              icon={WhatsappIcon}
+              aria-label="Chat me on Whatsapp"
+            ></SocialLink>
           </div>
         </div>
       </Container>
