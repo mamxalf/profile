@@ -8,6 +8,8 @@ import logoPipl from '@/images/logos/pipl.png'
 import logoPanggilin from '@/images/logos/panggilin.png'
 import logoHiSpatial from '@/images/logos/hispatial.jpeg'
 import logoQontak from '@/images/logos/qontak.png'
+import logoVsMembershipNinja from '@/images/logos/vs-membership.png'
+import logoItchIo from '@/images/logos/itch.png'
 
 const projects = [
   {
@@ -42,6 +44,24 @@ const projects = [
       label: 'Hi Spatial',
     },
     logo: logoHiSpatial,
+  },
+  {
+    name: 'Membership Ninja',
+    description: 'CRM - Complete Apps for Your Business!',
+    link: {
+      href: 'https://membership.ninja/',
+      label: 'Membership Ninja',
+    },
+    logo: logoVsMembershipNinja,
+  },
+  {
+    name: 'itch.io',
+    description: 'Sometimes I try to build Games and I post to itch.io',
+    link: {
+      href: 'https://mamxalf.itch.io/',
+      label: 'mamxalf.itch.io',
+    },
+    logo: logoItchIo,
   },
 ]
 
