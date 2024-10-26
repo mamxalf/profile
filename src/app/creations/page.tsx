@@ -34,7 +34,7 @@ export default function Creations() {
     <Container className="mt-16 sm:mt-32">
       <header className="max-w-2xl">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-          Software I use, gadgets I love, and other things I recommend.
+          My Creations: A Showcase of Passion and Craft.
         </h1>
         <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
           Welcome to my creative corner! Here, you'll find a collection of my
@@ -53,7 +53,7 @@ export default function Creations() {
               key={product.id}
               className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
             >
-              <div className="aspect-h-4 aspect-w-3 sm:aspect-none bg-gray-200 group-hover:opacity-75 sm:h-96">
+              <div className="aspect-h-4 aspect-w-3 bg-gray-200 sm:aspect-none group-hover:opacity-75 sm:h-96">
                 <img
                   alt={product.imageAlt}
                   src={product.imageSrc}
