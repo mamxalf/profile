@@ -8,8 +8,7 @@ const products = [
     price: 'Rp. 99.000,-',
     imageSrc:
       'https://media-myr.b-cdn.net/images/resized/1080/03107567-6fb2-4d60-afa2-6787517b1cc8.jpeg',
-    imageAlt:
-      'Eight shirts arranged on table in black, olive, grey, blue, white, red, mustard, and green.',
+    imageAlt: 'Pemrograman Python Dasar untuk GIS Professional',
   },
   {
     id: 2,
@@ -26,7 +25,7 @@ const products = [
 
 export const metadata = {
   title: 'Creations',
-  description: 'My Creations: A Showcase of Passion and Craft.',
+  description: 'A Showcase of Passion and Craft.',
 }
 
 export default function Creations() {
@@ -34,7 +33,7 @@ export default function Creations() {
     <Container className="mt-16 sm:mt-32">
       <header className="max-w-2xl">
         <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-          My Creations: A Showcase of Passion and Craft.
+          A Showcase of Passion and Craft.
         </h1>
         <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
           Welcome to my creative corner! Here, you'll find a collection of my
