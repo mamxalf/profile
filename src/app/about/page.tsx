@@ -87,6 +87,27 @@ export default function About() {
               into these technologies and integrating them into real-world
               projects.
             </p>
+            
+            <div className="mt-8 rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40">
+              <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
+                <span className="ml-3">Interested in mentoring?</span>
+              </h2>
+              <p className="mt-2 text-sm text-zinc-600 dark:text-zinc-400">
+                Want to get mentoring sessions with me or just discuss software development topics?
+                I'm available to help with career guidance, code reviews, and technical challenges.
+              </p>
+              <div className="mt-4">
+                <Link
+                  href="https://dealls.com/mentoring/hammam-firdaus-982"
+                  className="inline-flex items-center text-sm font-medium text-teal-500 hover:text-teal-700 dark:text-teal-400 dark:hover:text-teal-300"
+                >
+                  <span>Connect with me on Dealls</span>
+                  <svg viewBox="0 0 20 20" fill="currentColor" className="ml-1 h-4 w-4">
+                    <path fillRule="evenodd" d="M5.22 14.78a.75.75 0 001.06 0l7.22-7.22v5.69a.75.75 0 001.5 0v-7.5a.75.75 0 00-.75-.75h-7.5a.75.75 0 000 1.5h5.69l-7.22 7.22a.75.75 0 000 1.06z" clipRule="evenodd" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
         <div className="lg:pl-20">
