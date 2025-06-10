@@ -6,7 +6,7 @@ import { Container } from '@/components/Container'
 import logoTW from '@/images/logos/tw.png'
 import logoEvermos from '@/images/logos/evermos.png'
 import logoMekari from '@/images/logos/mekari.png'
-// import logoAmikomCenter from '@/images/logos/amikomcenter.jpeg'
+import logoVsMembershipNinja from '@/images/logos/vs-membership.png'
 import { Button } from '@/components/Button'
 import { Section } from '@/components/Section'
 // import { Card } from '@/components/Card'
@@ -39,20 +39,49 @@ export default function Experience() {
           <div className="space-y-20">
             <SpeakingSection title="Trinity Wizards">
               <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
-                Working on building middleware for Malaysia Airlines using
-                monorepo and implementing microservice.
+                Developed middleware for Malaysia Airlines using a monorepo
+                architecture and implemented microservices to enhance system
+                scalability and maintainability.
               </p>
               <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
-                Reduced used resource server by implementing Azure APIM Policy
-                by 20-30% to avoid inappropriate request parameters.
+                Reduced backend resource usage by 20–30% through effective use
+                of Azure API Management (APIM) policies to filter inappropriate
+                request parameters.
               </p>
               <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
-                Revamp backend server (check-in domain) Malaysia Airlines for
-                reducing complex algorithms and refactor N+1 code.
+                Revamped backend services in the Check-in and Booking domains,
+                optimizing complex algorithms and refactoring N+1 query issues
+                to improve performance.
               </p>
               <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
-                Successfully reduce loading time on static files download on the
-                server to 60% using LRU Cache.
+                Improved server-side static file performance by implementing LRU
+                caching, significantly reducing loading times.
+              </p>
+              <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
+                Implemented a robust job queue system using Azure Queue Storage,
+                introducing retry logic and delayed job handling in background
+                processes, resulting in a notable reduction in error rates by
+                30%.
+              </p>
+            </SpeakingSection>
+            <SpeakingSection title="Virtual Spirit">
+              <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
+                Implemented pre-commit hooks to enforce code consistency and
+                improve team development workflow.
+              </p>
+              <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
+                Integrated Sentry for real-time error tracking and performance
+                monitoring, enabling faster debugging and issue resolution.
+              </p>
+              <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
+                Reduced file upload times (images, videos, PDFs) from 30–120
+                seconds to under 2 seconds by implementing asynchronous
+                processing and optimizing file storage.
+              </p>
+              <p className="relative z-10 text-sm text-zinc-600 dark:text-zinc-400">
+                Refactored backend logic in Membership Ninja CRM to eliminate
+                N+1 query problems, significantly enhancing API response times
+                and backend efficiency.
               </p>
             </SpeakingSection>
             <SpeakingSection title="Evermos">
@@ -123,6 +152,13 @@ function Resume() {
         label: 'Present',
         dateTime: new Date().getFullYear().toString(),
       },
+    },
+    {
+      company: 'Virtual Spirit',
+      title: 'Ruby on Rails Developer',
+      logo: logoVsMembershipNinja,
+      start: 'May 2024',
+      end: 'Sep 2024',
     },
     {
       company: 'Evermos',
